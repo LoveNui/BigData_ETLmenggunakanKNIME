@@ -99,13 +99,13 @@ Untuk melakukan join, dapat digunakan node **Joiner**. Node ini memiliki dua seg
 
 Dalam tugas ini, kolom yang digabungkan tidak memiliki primary key, sehingga data-data digabung secara apa adanya, dari baris ke baris. ID baris (Row ID) dianggap sebagai primary key.
 
-***Isi konfigurasi joiner***
+![Konfigurasi Joiner](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Konfigurasi%20Joiner.png)
 
 
 ## Evaluation
 Apabila node Joiner dieksekusi dan berhasil, hasil join akan dapat dilihat. Dalam tugas ini, penggabungan dua data dari dua sumber **berhasil** dilakukan.
 
-***Isi sc joiner disini***
+![Hasil Joiner](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Screenshot%20tabel%20Joiner.png)
 
 
 ## Deployment
@@ -113,16 +113,18 @@ Setelah dua data digabungkan, data dapat disimpan kembali menjadi satu file atau
 
 Untuk menyimpan ke dalam database dapat digunakan node DB Writer dengan pengaturan sebagai berikut.
 
-***Isi konfigurasi db writer***
+![Konfigurasi DB Writer](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/6_Konfigurasi%20DB%20Writer.png)
+
 
 Apabila sudah dijalankan, akan muncul satu tabel baru pada skema database yang dipilih.
 
-***Isi sc db disini***
+![Hasil Akhir di Database](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/6_Screenshot%20DB%20akhir.png)
+
 
 Untuk menyimpan tabel ke dalam sebuah file XLS, dibutuhkan node **Excel Writer**. Adapun pengaturannya adalah sebagai berikut.
 
-***Isi konfigurasi excel Writer disini***
+![Konfigurasi XLS Writer](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/6_Konfigurasi%20Excel%20Writer.png)
 
 Setelah node dijalankan, file XLS baru akan terbuat dan akan terlihat seperti ini.
 
-***Isi sc xls disini***
+![Hasil Akhir di XLS](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/6_Screenshot%20Excel%20akhir.png)
