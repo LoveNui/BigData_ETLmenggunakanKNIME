@@ -2,7 +2,7 @@
 
 Repo ini berisi jawaban tugas 1 kelas Big Data oleh Alifiannisa Alyahasna Wighneswara (05111740000011), yaitu implementasi ETL menggunakan KNIME
 
- ![alt test](Gambar/3_Node Column Splitter.png)
+ ![Workflow ELT](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Node%20Column%20Splitter.png)
 
 ## Business Understanding
 **World Happiness Report** merupakan hasil dari survei yang dilakukan untuk mengetahui kondisi kebahagiaan global. Laporan ini terus mendapatkan pengakuan global karena pemerintah, organisasi dan masyarakat sipil semakin menggunakan indikator kebahagiaan untuk menginformasikan keputusan pembuatan kebijakan mereka. Pakar terkemuka di berbagai bidang - ekonomi, psikologi, analisis survei, statistik nasional, kesehatan, kebijakan publik, dan lainnya - menggambarkan bagaimana pengukuran kesejahteraan dapat digunakan secara efektif untuk menilai kemajuan negara. Laporan tersebut meninjau keadaan kebahagiaan di dunia saat ini dan menunjukkan bagaimana ilmu kebahagiaan yang baru menjelaskan variasi kebahagiaan pribadi dan nasional.
@@ -33,33 +33,37 @@ Pada laporan tahun 2019, laporan terdiri dari **9 kolom** dan **156 baris**. Bar
 
 Pada data preparation, file CSV harus dibuka terlebih dahulu menggunakan node **CSV Reader**. Adapun pengaturannya adalah sebagai berikut.
 
-***Isi gambar konfigurasi dan tabelnya disini***
+![Pengaturan CSV Reader](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Konfigurasi%20CSV%20Reader.png)
+
+![Hasil CSV Reader](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Screenshot%20CSV%20Reader.png)
 
 Untuk memisahkan data menjadi dua bagian digunakan node **Column Splitter**  Bagian pertama berisi kolom Overall rank, GDP per capita, Social support, Healthy life expectancy, Freedom to make choices, Generosity, dan Perceptions of corruption. Bagian kedua berisi kolom Country dan Score.
 
-***Isi gambar SC 2 kolom disini***
+![Top Partition](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Top%20partitions.png)
+
+![Bottom partition](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Bottom%20partitions.png)
 
 Setelah itu, kolom pertama disimpan dalam database dan kolom kedua disimpan sebagai file CSV.
 
 Untuk menyimpan kolom pertama, database di localhost harus disambungkan terlebih dahulu dengan KNIME menggunakan node **MySQL Connector**. Node ini memiliki kotak merah kecil di sebelah kanan yang akan disambungkan ke node lain. Pengaturan penyambungan database adalah sebagai berikut.
 
-***Isi konfigurasi penyambungan database disini***
+![Konfigurasi MySQL Connector](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Konfigurasi%20MySQL%20Connection.png)
 
 Setelah disambungkan ke database, partisi bagian pertama akan disimpan ke dalam database menggunakan node **DB Writer**. DB Writer memiliki dua konektor di sebelah kiri, berbentuk segitiga dan segi empat. Konektor segitiga dihubungkan dengan node yang berisi data, sedangkan konektor segi empat dihubungkan dengan MySQL Connector. Adapun pengaturannya adalah sebagai berikut.
 
-***Isi konfigurasi DB Writer disini***
+![Konfigurasi DB Writer](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Konfigurasi%20DB%20Writer.png)
 
 Setelah DB Writer dijalankan, di skema akan terbentuk satu tabel baru bernama scores yang merupakan tabel dari data pertama.
 
-***Isi sc database disini***
+![Top partition di dalam database](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Screenshot%20database.png)
 
 Partisi bagian kedua akan disimpan ke dalam file CSV. Untuk menyimpan tabel ke dalam sebuah file CSV, dibutuhkan node **CSV Writer**. Node CSV Writer memiliki satu konektor di sebelah kiri dan dihubungkan dengan node yang berisi data. Adapun pengaturannya adalah sebagai berikut.
 
-***Isi konfigurasi CSV Writer disini***
+![Konfigurasi CSV Writer](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Konfigurasi%20CSV%20Writer.png)
 
 Setelah node dijalankan, file CSV baru akan terbuat dan akan terlihat seperti ini.
 
-***Isi sc csv disini***
+![Bottom partition di dalam CSV](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/3_Screenshot%20CSV%20bottom%20partition.png)
 
 
 ## Modeling
@@ -70,11 +74,21 @@ Untuk file yang berasal dari database, bisa digunakan node **DB Table Selector**
 
 Node DB Table Selector memiliki satu konektor di sebelah kiri dan dihubungkan dengan node MySQL Connection. Adapun pengaturan node DB Table Selector adalah sebagai berikut.
 
-***Isi konfigurasi DB Table selector dan sc hasilnya disini***
+![Konfigurasi DB Table Selector](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Konfigurasi%20DB%20Table%20Selector.png)
+
+![Hasil DB Table Selector](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Screenshot%20tabel%20DB%20Table%20Selector.png)
+
+Setelah tabel-tabel dalam skema dipilih, tabel-tabel tersebut harus dibaca terlebih dahulu sebelum digabungkan dengan data lainnya. Untuk membaca tabel yang sudah dipilih, dapat digunakan node **DB Reader**. Konektor di sebelah kiri dihubungkan dengan node DB Table Selector dengan pengaturan sebagai berikut.
+
+![Konfigurasi DB Reader](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Konfigurasi%20DB%20Reader.png)
+
+![Hasil DB Reader](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Screenshot%20tabel%20DB%20Reader.png)
 
 Untuk file berupa CSV, file dapat dibuka menggunakan node **CSV Reader**. Adapun pengaturannya adalah sebagai berikut.
 
-***Isi konfigurasi csv reader dan sc hasilnya disini***
+![Konfigurasi CSV Reader](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Konfigurasi%20CSV%20Reader.png)
+
+![Hasil CSV Reader](https://github.com/alifialyaa/BigData_Tugas01_ETLmenggunakanKNIME/blob/master/Gambar/4_Screenshot%20tabel%20CSV%20Reader.png)
 
 Setelah data-data dapat dibaca oleh KNIME, proses join atau append dapat dilakukan.
 
